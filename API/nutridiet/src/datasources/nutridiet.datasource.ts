@@ -1,0 +1,31 @@
+import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
+import {juggler} from '@loopback/repository';
+
+const config = {
+  name: 'nutridiet',
+  connector: 'mssql',
+  url: '',
+  host: 'DESKTOP-BGKM891',
+  port: 3306,
+  user: 'sa',
+  password: 'neira99',
+  database: 'NutriDiet'
+};
+
+// Observe application's life cycle to disconnect the datasource when
+// application is stopped. This allows the application to be shut down
+// gracefully. The `stop()` method is inherited from `juggler.DataSource`.
+// Learn more at https://loopback.io/doc/en/lb4/Life-cycle.html
+@lifeCycleObserver('datasource')
+export class NutridietDataSource extends juggler.DataSource
+  implements LifeCycleObserver {
+  static dataSourceName = 'nutridiet';
+  static readonly defaultConfig = config;
+
+  constructor(
+    @inject('datasources.config.nutridiet', {optional: true})
+    dsConfig: object = config,
+  ) {
+    super(dsConfig);
+  }
+}
