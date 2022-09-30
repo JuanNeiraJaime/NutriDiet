@@ -14,6 +14,13 @@ export class Ingredientes extends Entity {
   })
   id_alimento: number;
 
+  @property({
+    type: 'number',
+    id: true,
+    required: true,
+  })
+  id: number;
+
   // Define well-known properties here
 
   // Indexer property to allow additional data

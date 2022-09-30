@@ -1,49 +1,31 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({settings: {strict: false}})
-export class Paciente extends Entity {
+export class Cita extends Entity {
   @property({
     type: 'number',
     id: true,
     generated: true,
   })
-  id_pac?: number;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  Nombres: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  Apellidos: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  Telefono: string;
+  id_cita?: number;
 
   @property({
     type: 'number',
     required: true,
   })
-  Edad: number;
+  Hora: number;
 
   @property({
-    type: 'string',
+    type: 'date',
     required: true,
   })
-  Sexo: string;
+  Fecha: Date;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
   })
-  Alergia: string;
+  id_pac: number;
 
   // Define well-known properties here
 
@@ -51,13 +33,13 @@ export class Paciente extends Entity {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<Paciente>) {
+  constructor(data?: Partial<Cita>) {
     super(data);
   }
 }
 
-export interface PacienteRelations {
+export interface CitaRelations {
   // describe navigational properties here
 }
 
-export type PacienteWithRelations = Paciente & PacienteRelations;
+export type CitaWithRelations = Cita & CitaRelations;

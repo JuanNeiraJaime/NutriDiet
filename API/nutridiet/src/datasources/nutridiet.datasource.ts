@@ -5,8 +5,8 @@ const config = {
   name: 'nutridiet',
   connector: 'mssql',
   url: '',
-  host: 'DESKTOP-BGKM891',
-  port: 3306,
+  host: 'localhost',
+  port: 1433,
   user: 'sa',
   password: 'neira99',
   database: 'NutriDiet'
