@@ -1,1 +1,2 @@
-export * from './nutridiet.datasource';
+
+export * from './nutri-diet.datasource';

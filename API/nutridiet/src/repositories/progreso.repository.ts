@@ -1,6 +1,6 @@
 import {inject} from '@loopback/core';
 import {DefaultCrudRepository} from '@loopback/repository';
-import {NutridietDataSource} from '../datasources';
+import {NutriDietDataSource} from '../datasources';
 import {Progreso, ProgresoRelations} from '../models';
 
 export class ProgresoRepository extends DefaultCrudRepository<
@@ -9,7 +9,7 @@ export class ProgresoRepository extends DefaultCrudRepository<
   ProgresoRelations
 > {
   constructor(
-    @inject('datasources.nutridiet') dataSource: NutridietDataSource,
+    @inject('datasources.NutriDiet') dataSource: NutriDietDataSource,
   ) {
     super(Progreso, dataSource);
   }

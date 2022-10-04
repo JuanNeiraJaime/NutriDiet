@@ -2,13 +2,13 @@ import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
 const config = {
-  name: 'nutridiet',
-  connector: 'mssql',
+  name: 'NutriDiet',
+  connector: 'mysql',
   url: '',
   host: 'localhost',
-  port: 1433,
-  user: 'sa',
-  password: 'neira99',
+  port: 3306,
+  user: 'root',
+  password: 'Password4+',
   database: 'NutriDiet'
 };
 
@@ -17,13 +17,13 @@ const config = {
 // gracefully. The `stop()` method is inherited from `juggler.DataSource`.
 // Learn more at https://loopback.io/doc/en/lb4/Life-cycle.html
 @lifeCycleObserver('datasource')
-export class NutridietDataSource extends juggler.DataSource
+export class NutriDietDataSource extends juggler.DataSource
   implements LifeCycleObserver {
-  static dataSourceName = 'nutridiet';
+  static dataSourceName = 'NutriDiet';
   static readonly defaultConfig = config;
 
   constructor(
-    @inject('datasources.config.nutridiet', {optional: true})
+    @inject('datasources.config.NutriDiet', {optional: true})
     dsConfig: object = config,
   ) {
     super(dsConfig);
