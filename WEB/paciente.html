@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Registro de Pacientes</title>
+</head>
+<body>
+
+    <H1>Registro de pacientes:</H1>
+    <form action="" id="Formulario">
+
+            <label for="">Nombres: </label>
+            <input type="text" value="" id="Nombretext">
+            <br>
+            <br>
+            <label for="">Apellidos: </label>
+            <input type="text" value="" id="Apellidotext">
+            <br>
+            <br>
+            <label for="">Telefono: </label>
+            <input type="text" value="" id="Telefonotext">
+            <br>
+            <br>
+            <label for="">Edad: </label>
+            <input type="text" value="" id="Edadtext">
+            <br>
+            <br>
+            <label for="">Sexo: </label>
+            <input type="text" value="" id="Sexotext">
+            <br>
+            <br>
+            <label for="">Alergia: </label>
+            <input type="text" value="" id="Alergiatext">
+            <br>
+            <br>
+
+            <input type="button" value="Registrar Paciente" onclick="RegistrarP()">
+            <input type="button" value="Consultar" onclick="ConsultarP()">
+    </form>
+
+    <br><br>
+
+    <table id="Datos">
+        <tr>    
+            <th>
+                ID
+            </th>
+            <th>Nombres </th>
+            <th>Apellidos </th>
+            <th>Telefono </th>
+            <th>Edad </th>
+            <th>Sexo </th>
+            <th>Alergia </th>
+            <th>Accion </th>
+        </tr>
+        
+
+    </table>
+
+
+
+</body>
+<script src="paciente.js"></script>
+</html>
