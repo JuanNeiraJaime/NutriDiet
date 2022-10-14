@@ -1,17 +1,24 @@
-function Log() {
-    let usuario = document.getElementById("User").value;
-    let password = document.getElementById("pass").value;
+let usuario = document.getElementById("User");
+let password = document.getElementById("pass");
+let ingresar = document.getElementById("ingresar");
 
-    fetch('http://localhost:3000/users/login', {
-      method: 'POST',
-    headers: {
-        "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email: usuario, password: password })
+ingresar.addEventListener("click", () => {
+  fetch("http://localhost:3000/users/login", {
+    method: "POST",
+    body: JSON.stringify({
+      email: usuario.value,
+      password: password.value,
+    }),
+    headers: { "content-Type": "application/JSON" },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        location.assign("paciente.html");
+      }
+      return res.json();
     })
-    .then(res => res.json())
-    .then(res=> {
-    console.log(res);
+    .then((res) => {
+      window.localStorage.setItem("token", res.token);
     })
-    .catch(e => console.log(e))
-}
+    .catch((err) => console.log(err));
+});
