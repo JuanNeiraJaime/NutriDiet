@@ -5,11 +5,11 @@ const config = {
   name: 'NutriDiet',
   connector: 'mysql',
   url: '',
-  host: 'localhost',
+  host: 'nutridiet.cyyvqt1pvsmm.us-east-2.rds.amazonaws.com',
   port: 3306,
-  user: 'root',
-  password: 'Password4+',
-  database: 'NutriDiet'
+  user: 'admin',
+  password: 'nutridiet4+',
+  database: 'nutridiet'
 };
 
 // Observe application's life cycle to disconnect the datasource when
