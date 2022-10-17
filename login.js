@@ -3,7 +3,7 @@ let password = document.getElementById("pass");
 let ingresar = document.getElementById("ingresar");
 
 ingresar.addEventListener("click", () => {
-  fetch("http://localhost:3000/users/login", {
+  fetch("https://nutridiet6.herokuapp.com/users/login", {
     method: "POST",
     body: JSON.stringify({
       email: usuario.value,

@@ -4,7 +4,7 @@ let contraseña = document.getElementById("contraseña")
 var tabla = document.getElementById("contenedor")
 
 function consultar(){
-    fetch('http://localhost:3000/users')
+    fetch('https://nutridiet6.herokuapp.com/users')
     .then(resp => resp.json())
     .then(res => {
 
@@ -26,7 +26,7 @@ function consultar(){
 }
 
 function registrar(){
-    fetch('http://localhost:3000/users',{
+    fetch('https://nutridiet6.herokuapp.com/users',{
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
@@ -42,7 +42,7 @@ function registrar(){
 }
 
 function borrar(e){
-    fetch('http://localhost:3000/users/'+ e.target.value,{
+    fetch('https://nutridiet6.herokuapp.com/users/'+ e.target.value,{
         method: 'DELETE',
     })
     .then(resp => resp.json())

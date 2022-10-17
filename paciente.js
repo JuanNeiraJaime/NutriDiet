@@ -11,7 +11,7 @@ btncerrarsesion.addEventListener("click", () => {
 
 function ConsultarP(){
 
-    fetch('http://localhost:3000/pacientes')
+    fetch('https://nutridiet6.herokuapp.com/pacientes')
     .then(resp => resp.json())
     .then(res => {
   

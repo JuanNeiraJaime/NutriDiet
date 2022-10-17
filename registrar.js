@@ -2,7 +2,7 @@ function Registrar() {
   let usuario = document.getElementById("User");
   let password = document.getElementById("pass");
 
-  fetch("http://localhost:3000/signup", {
+  fetch("https://nutridiet6.herokuapp.com/signup", {
     method: "POST",
     body: JSON.stringify({
       email: usuario.value,
