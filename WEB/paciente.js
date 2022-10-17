@@ -11,13 +11,6 @@ btncerrarsesion.addEventListener("click", () => {
 
 function ConsultarP(){
 
-    /* let nombre = document.getElementById("Nombretext").value;
-    let apellido = document.getElementById("Apellidostext").value;
-    let telefono = document.getElementById("Telefonotext").value;
-    let edad = document.getElementById("Edadtext").value;
-    let sexo = document.getElementById("Sexotext").value;
-    let alergia = document.getElementById("Alergiatext").value;
- */
     fetch('http://localhost:3000/pacientes')
     .then(resp => resp.json())
     .then(res => {
@@ -25,9 +18,9 @@ function ConsultarP(){
     for (var i = 0; i < res.length; i++) { 
 
         var fila = tabla.insertRow();
-
+/* 
         var a = document.createElement("button");
-        a.innerHTML = "Borrar";
+        a.innerHTML = "Borrar"; */
        
     
          fila.insertCell(0).innerHTML   = res[i].id_pac;
@@ -37,12 +30,11 @@ function ConsultarP(){
          fila.insertCell(4).innerHTML = res[i].Edad;
          fila.insertCell(5).innerHTML = res[i].Sexo;
          fila.insertCell(6).innerHTML = res[i].Alergia;
-         fila.insertCell(7).appendChild(a);
+        // fila.insertCell(7).appendChild(a);
        
-         a.onclick = function() {
-            console.log(fila)
-            Borrar()
-        }
+        /*  a.onclick = function() {
+            console.log(fila); 
+        } */
     }
 
     });
@@ -51,9 +43,11 @@ function ConsultarP(){
     
 }
 
-function Borrar(idpac){
+function Borrar(){
 
-    fetch('http://localhost:3000/pacientes/' + idpac, {
+    let borrar = document.getElementById('IDe').value;
+
+    fetch('http://localhost:3000/pacientes/' + borrar, {
         method: 'DELETE',
         headers:{ "content-Type": "application/JSON",
         Autorization: "Bearer" + window.localStorage.getItem("token") 
@@ -63,6 +57,36 @@ function Borrar(idpac){
   .then(res=> {
         alert("Paciente elimnado Correctamente");
   });     
+
+}
+
+function EditarP() {
+    let id = document.getElementById("ID").value;
+    let nombre = document.getElementById("NombretextE").value;
+    let apellido = document.getElementById("ApellidotextE").value;
+    let telefono = document.getElementById("TelefonotextE").value;
+    let edad = document.getElementById("EdadtextE").value;
+    let intedad = parseInt(edad, 10);
+    let sexo = document.getElementById("SexotextE").value;
+    let alergia = document.getElementById("AlergiatextE").value;
+
+    fetch('http://localhost:3000/pacientes/' + id, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ Nombres: nombre, Apellidos: apellido , Telefono: telefono , Edad: intedad , Sexo: sexo, Alergia: alergia })
+         })
+        .then(res => {
+            if(res.status==202) {
+                alert("editado")
+            }else{
+                alert("error editado")
+            }
+        })
+        .then(res=> {
+        console.log(res);
+});
 
 }
 

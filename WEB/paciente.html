@@ -38,10 +38,15 @@
             <br>
 
             <input type="button" value="Registrar Paciente" onclick="RegistrarP()">
-            <input type="button" value="Consultar" onclick="ConsultarP()">
+
+           
     </form>
 
-    <br><br>
+    <h1>Consultar Pacientes: </h1>
+            
+    <input type="button" value="Consultar" onclick="ConsultarP()">
+
+    <br>
 
     <table id="Datos">
         <tr>    
@@ -59,6 +64,57 @@
         
 
     </table>
+
+    <h1>Editar Paciente: </h1>
+
+    <form action="" id="FormularioEditar">
+
+        <label for="">Ingrese el ID del paciente a editar: </label>
+        <input type="text" value="" id="ID">
+        <br>
+        <br>
+
+        <label for="">Nombres: </label>
+        <input type="text" value="" id="NombretextE">
+        <br>
+        <br>
+        <label for="">Apellidos: </label>
+        <input type="text" value="" id="ApellidotextE">
+        <br>
+        <br>
+        <label for="">Telefono: </label>
+        <input type="text" value="" id="TelefonotextE">
+        <br>
+        <br>
+        <label for="">Edad: </label>
+        <input type="text" value="" id="EdadtextE">
+        <br>
+        <br>
+        <label for="">Sexo: </label>
+        <input type="text" value="" id="SexotextE">
+        <br>
+        <br>
+        <label for="">Alergia: </label>
+        <input type="text" value="" id="AlergiatextE">
+
+        <input type="button" value="Editar Paciente" onclick="EditarP()">
+
+
+
+    </form>
+    
+
+
+    <h1>Eliminar Paciente: </h1>
+
+    <form action="" id="FomrularioEliminar">
+
+        <label for="">Ingrese el ID del paciente a Eliminar: </label>
+        <input type="text" value="" id="IDe">
+
+        <input type="button" value="Eliminar Paciente" onclick="Borrar()">
+
+    </form>
 
     <input type="button" value="cerrar sesion" id="cerrarsesion">
 
