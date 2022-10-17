@@ -47,7 +47,7 @@ function Borrar(){
 
     let borrar = document.getElementById('IDe').value;
 
-    fetch('http://localhost:3000/pacientes/' + borrar, {
+    fetch('https://nutridiet6.herokuapp.com/pacientes/' + borrar, {
         method: 'DELETE',
         headers:{ "content-Type": "application/JSON",
         Autorization: "Bearer" + window.localStorage.getItem("token") 
@@ -70,7 +70,7 @@ function EditarP() {
     let sexo = document.getElementById("SexotextE").value;
     let alergia = document.getElementById("AlergiatextE").value;
 
-    fetch('http://localhost:3000/pacientes/' + id, {
+    fetch('https://nutridiet6.herokuapp.com/pacientes/' + id, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",
@@ -102,7 +102,7 @@ function RegistrarP(){
     let alergia = document.getElementById("Alergiatext").value;
     
 
-    fetch('http://localhost:3000/pacientes', {
+    fetch('https://nutridiet6.herokuapp.com/pacientes', {
     method: 'POST',
     headers: {
         "Content-Type": "application/json",
