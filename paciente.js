@@ -35,7 +35,9 @@ function ConsultarP(){
         /*  a.onclick = function() {
             console.log(fila); 
         } */
+
     }
+    
 
     });
 
@@ -52,12 +54,14 @@ function Borrar(){
         headers:{ "content-Type": "application/JSON",
         Autorization: "Bearer" + window.localStorage.getItem("token") 
     },
-  })
-  .then(res => res.json())
-  .then(res=> {
-        alert("Paciente elimnado Correctamente");
-  });     
-
+    })
+    .then(res => {
+    if(res.status==204) {
+        alert("Paciente Eliminado Correctamente")
+    }else{
+        alert("error al eliminar el paciente")
+    }
+    })
 }
 
 function EditarP() {
@@ -78,7 +82,7 @@ function EditarP() {
         body: JSON.stringify({ Nombres: nombre, Apellidos: apellido , Telefono: telefono , Edad: intedad , Sexo: sexo, Alergia: alergia })
          })
         .then(res => {
-            if(res.status==202) {
+            if(res.status==204) {
                 alert("editado")
             }else{
                 alert("error editado")
@@ -110,7 +114,13 @@ function RegistrarP(){
     },
     body: JSON.stringify({ Nombres: nombre, Apellidos: apellido , Telefono: telefono , Edad: intedad , Sexo: sexo, Alergia: alergia })
     })
-    .then(res => res.json())
+    .then(res => {
+        if(res.status==200) {
+            alert("Registro Exitoso..")
+        }else{
+            alert("error al registrar")
+        }
+    })
     .then(res=> {
     console.log(res);
 });
