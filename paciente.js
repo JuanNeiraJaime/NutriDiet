@@ -58,8 +58,10 @@ function Borrar(){
     .then(res => {
     if(res.status==204) {
         alert("Paciente Eliminado Correctamente")
+        console.log("Si ingreso");
     }else{
         alert("error al eliminar el paciente")
+        console.log("no ingreso");
     }
     })
 }
@@ -84,8 +86,10 @@ function EditarP() {
         .then(res => {
             if(res.status==204) {
                 alert("editado")
+                console.log("Si ingreso");
             }else{
                 alert("error editado")
+                console.log("no ingreso");
             }
         })
         .then(res=> {
@@ -117,8 +121,10 @@ function RegistrarP(){
     .then(res => {
         if(res.status==200) {
             alert("Registro Exitoso..")
+            console.log("Si ingreso");
         }else{
             alert("error al registrar")
+            console.log("no ingreso");
         }
     })
     .then(res=> {
