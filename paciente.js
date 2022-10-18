@@ -77,6 +77,35 @@ function Borrar(){
     })
 }
 
+function DatosEditar() {
+    let id = document.getElementById("ID").value;
+
+    fetch('https://nutridiet6.herokuapp.com/pacientes' + id)
+    .then(resp => resp.json())
+    .then(res => { 
+
+        console.log(resp);
+        console.log(resp[0].Apellidos);
+
+
+       // fila.insertCell(0).innerHTML   = res[i].id_pac;
+        document.getElementById("NombretextE").value = res[0].Nombres;
+        document.getElementById("ApellidotextE").value = res[0].Apellidos;
+        document.getElementById("TelefonotextE").value = res[0].Telefono;
+        document.getElementById("EdadtextE").value = res[0].Edad;
+        document.getElementById("SexotextE").value = res[0].Sexo;
+        document.getElementById("AlergiatextE").value = res[0].Alergia;
+
+        //ID.readOnly = true;
+        id.readOnly = false;
+
+
+    })
+
+
+    
+}
+
 function EditarP() {
     let id = document.getElementById("ID").value;
     let nombre = document.getElementById("NombretextE").value;
