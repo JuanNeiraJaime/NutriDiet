@@ -11,6 +11,8 @@ btncerrarsesion.addEventListener("click", () => {
 
 function ConsultarP(){
 
+    $("#Datos").remove();
+
     fetch('https://nutridiet6.herokuapp.com/pacientes')
     .then(resp => resp.json())
     .then(res => {
