@@ -11,7 +11,16 @@ btncerrarsesion.addEventListener("click", () => {
 
 function ConsultarP(){
 
-    $("#Datos").remove();
+    // Obtenemos una referencia al elemento
+    const elemento = document.getElementById("Datos");
+
+    // El botón solo es para la demostración
+    const btnLimpiar = document.getElementById("Consultar");
+
+    // Y en el click, limpiamos
+    btnLimpiar.addEventListener("click", () => {
+    elemento.innerHTML = "";
+    });
 
     fetch('https://nutridiet6.herokuapp.com/pacientes')
     .then(resp => resp.json())
