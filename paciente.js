@@ -80,12 +80,18 @@ function Borrar(){
 function DatosEditar() {
     let id = document.getElementById("ID").value;
 
-    fetch('https://nutridiet6.herokuapp.com/pacientes' + id)
-    .then(resp => resp.json())
-    .then(res => { 
+    fetch('https://nutridiet6.herokuapp.com/pacientes' + id , {
+        headers: {
+            "content-type": "application/JSON",
+            Autorization: "Bearer " + window.localStorage.token,   
+        },
+    })
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+    
 
-        console.log(resp);
-        console.log(resp[0].Apellidos);
+        console.log(response);
+        console.log(response[0].Apellidos);
 
 
        // fila.insertCell(0).innerHTML   = res[i].id_pac;
@@ -97,13 +103,7 @@ function DatosEditar() {
         document.getElementById("AlergiatextE").value = res[0].Alergia;
 
         //ID.readOnly = true;
-        id.readOnly = false;
-
-
-    })
-
-
-    
+        id.readOnly = false;   
 }
 
 function EditarP() {
