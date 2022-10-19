@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="stylesheet" href="style.css">
     <title>Registro de Pacientes</title>
 </head>
 <body>
 
-    <H1>Registro de pacientes:</H1>
+    <section class="form-registropaciente">
+        <H5>Registro de pacientes:</H5>
     <form action="" id="Formulario">
 
             <label for="">Nombres: </label>
@@ -42,7 +43,11 @@
            
     </form>
 
-    <h1>Consultar Pacientes: </h1>
+    
+    </section>
+    
+    <section class="form-consultar">
+        <h5>Consultar Pacientes: </h5>
             
     <input type="button" value="Consultar" onclick="ConsultarP()">
 
@@ -64,8 +69,10 @@
         
 
     </table>
+    </section>
 
-    <h1>Editar Paciente: </h1>
+    <section class="form-editar">
+        <h5>Editar Paciente: </h5>
 
     <form action="" id="FormularioEditar">
 
@@ -98,23 +105,21 @@
         <input type="text" value="" id="AlergiatextE">
 
         <input type="button" value="Editar Paciente" onclick="EditarP()">
-
-
-
     </form>
-    
+    </section>
 
+    <section class="form-eliminar">
+    <h5>Eliminar Paciente: </h5>
 
-    <h1>Eliminar Paciente: </h1>
+        <form action="" id="FomrularioEliminar">
 
-    <form action="" id="FomrularioEliminar">
+            <label for="">Ingrese el ID del paciente a Eliminar: </label>
+            <input type="text" value="" id="IDe">
 
-        <label for="">Ingrese el ID del paciente a Eliminar: </label>
-        <input type="text" value="" id="IDe">
+            <input type="button" value="Eliminar Paciente" onclick="Borrar()">
 
-        <input type="button" value="Eliminar Paciente" onclick="Borrar()">
-
-    </form>
+        </form>
+    </section>
 
     <input type="button" value="cerrar sesion" id="cerrarsesion">
 
