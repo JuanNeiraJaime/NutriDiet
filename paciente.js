@@ -79,16 +79,17 @@ function Borrar(){
 
 function DatosEditar() {
     let id = document.getElementById("ID").value;
-
+    try {
     fetch('https://nutridiet6.herokuapp.com/pacientes' + id , {
         headers: {
             "content-type": "application/JSON",
             Autorization: "Bearer " + window.localStorage.token,   
         },
-    })
-    .then((response) => response.json())
-    .then((data) => console.log(data));
-    
+    });
+    json = await.res.json();
+    MostrarDatos(json);
+    if(res.status == 200){
+        sweetAlert("Exito", "Datos obtenidos correctamente", "Success");
 
         console.log(response);
         console.log(response[0].Apellidos);
@@ -104,7 +105,19 @@ function DatosEditar() {
 
         //ID.readOnly = true;
         id.readOnly = false;   
+
+    }else{
+        sweetAlert("Error", "Algo ha salido mal", "ERROR");
+    }
+    }
+    catch(e){
+        console.log(e);
+    }
 }
+    
+
+        
+
 
 function EditarP() {
     let id = document.getElementById("ID").value;
