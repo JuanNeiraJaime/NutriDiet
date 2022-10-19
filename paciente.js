@@ -85,12 +85,12 @@ function DatosEditar() {
     .then(resp => resp.json())
     .then(res => {
         console.log(res);
-       /*  document.getElementById("NombretextE").value = res[0].Nombres;
-        document.getElementById("ApellidotextE").value = res[0].Apellidos;
-        document.getElementById("TelefonotextE").value = res[0].Telefono;
-        document.getElementById("EdadtextE").value = res[0].Edad;
-        document.getElementById("SexotextE").value = res[0].Sexo;
-        document.getElementById("AlergiatextE").value = res[0].Alergia; */
+        document.getElementById("NombretextE").value = res.Nombres;
+        document.getElementById("ApellidotextE").value = res.Apellidos;
+        document.getElementById("TelefonotextE").value = res.Telefono;
+        document.getElementById("EdadtextE").value = res.Edad;
+        document.getElementById("SexotextE").value = res.Sexo;
+        document.getElementById("AlergiatextE").value = res.Alergia;
 
         //ID.readOnly = true;
         id.readOnly = false;
