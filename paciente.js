@@ -1,4 +1,4 @@
-var tabla = document.getElementById("Datos");
+var tabla = document.getElementById("Datos2");
 
 
 let btncerrarsesion = document.getElementById("cerrarsesion")
