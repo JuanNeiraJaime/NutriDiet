@@ -86,7 +86,7 @@ function DatosEditar() {
             Autorization: "Bearer " + window.localStorage.token,   
         },
     })
-    .then(resp => resp.json())
+    .then(res => res.json())
 
     console.log(res);
             console.log(res[0].Apellidos);
