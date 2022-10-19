@@ -12,14 +12,14 @@ btncerrarsesion.addEventListener("click", () => {
 function ConsultarP(){
 
     // Obtenemos una referencia al elemento
-    const elemento = document.getElementById("Datos");
+    const elemento = document.getElementById("datos2");
 
     // El botón solo es para la demostración
     const btnLimpiar = document.getElementById("Consultar");
 
     // Y en el click, limpiamos
     btnLimpiar.addEventListener("click", () => {
-    fila.innerHTML = "";
+    elemento.innerHTML = "";
     });
 
     fetch('https://nutridiet6.herokuapp.com/pacientes')
