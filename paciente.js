@@ -86,21 +86,21 @@ function DatosEditar() {
     .then(res => {
         console.log(res);
 
-        for (var i = 0; i < res.length; i++) { 
+       /*  for (var i = 0; i < res.length; i++) { 
 
             if (res[i].id_pac == id) {
-                id == i;
+                posi == i;
                 break;
             }
 
-        }
+        } */
 
-        document.getElementById("NombretextE").value = res[id].Nombres;
-        document.getElementById("ApellidotextE").value = res[id].Apellidos;
-        document.getElementById("TelefonotextE").value = res[id].Telefono;
-        document.getElementById("EdadtextE").value = res[id].Edad;
-        document.getElementById("SexotextE").value = res[id].Sexo;
-        document.getElementById("AlergiatextE").value = res[id].Alergia;
+        document.getElementById("NombretextE").value = res.Nombres;
+        document.getElementById("ApellidotextE").value = res.Apellidos;
+        document.getElementById("TelefonotextE").value = res.Telefono;
+        document.getElementById("EdadtextE").value = res.Edad;
+        document.getElementById("SexotextE").value = res.Sexo;
+        document.getElementById("AlergiatextE").value = res.Alergia;
 
         //ID.readOnly = true;
         id.readOnly = false;
