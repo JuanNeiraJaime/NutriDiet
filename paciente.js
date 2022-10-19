@@ -1,4 +1,4 @@
-var tabla = document.getElementById("Datos");
+var tabla = document.getElementById("Datos2");
 
 
 let btncerrarsesion = document.getElementById("cerrarsesion")
@@ -10,6 +10,17 @@ btncerrarsesion.addEventListener("click", () => {
 )
 
 function ConsultarP(){
+
+    // Obtenemos una referencia al elemento
+    const elemento = document.getElementById("Datos2");
+
+    // El botón solo es para la demostración
+    const btnLimpiar = document.getElementById("Consultar");
+
+    // Y en el click, limpiamos
+    btnLimpiar.addEventListener("click", () => {
+    elemento.innerHTML="";
+    });
 
     fetch('https://nutridiet6.herokuapp.com/pacientes')
     .then(resp => resp.json())
@@ -65,6 +76,63 @@ function Borrar(){
     }
     })
 }
+
+function DatosEditar() {
+    let id = document.getElementById("ID").value;
+    try {
+    fetch('https://nutridiet6.herokuapp.com/pacientes/' + id)
+    //.then(res => res.json())
+    .then(resp => resp.json())
+    .then(res => {
+        console.log(res);
+
+       /*  for (var i = 0; i < res.length; i++) { 
+
+            if (res[i].id_pac == id) {
+                posi == i;
+                break;
+            }
+
+        } */
+
+        document.getElementById("NombretextE").value = res.Nombres;
+        document.getElementById("ApellidotextE").value = res.Apellidos;
+        document.getElementById("TelefonotextE").value = res.Telefono;
+        document.getElementById("EdadtextE").value = res.Edad;
+        document.getElementById("SexotextE").value = res.Sexo;
+        document.getElementById("AlergiatextE").value = res.Alergia;
+
+        //ID.readOnly = true;
+        id.readOnly = false;
+    });
+
+            //console.log(res);
+            //console.log(resp[0].Apellidos);
+    
+    
+           // fila.insertCell(0).innerHTML   = res[i].id_pac;
+           
+
+    /* .then(res => {
+        if(res.status==200) {
+            alert("Paciente Solicitado Correctamente")
+            console.log("Si ingreso");
+            
+               
+        }else{
+            alert("error al solicitar el paciente")
+            console.log("no ingreso");
+        }
+        }) */
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+    
+
+        
+
 
 function EditarP() {
     let id = document.getElementById("ID").value;

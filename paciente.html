@@ -49,27 +49,36 @@
     <section class="form-consultar">
         <h5>Consultar Pacientes: </h5>
             
-    <input type="button" value="Consultar" onclick="ConsultarP()">
-
-    <br>
-
     <table id="Datos">
         <tr>    
-            <th>
-                ID
-            </th>
+            <th>ID </th>
             <th>Nombres </th>
             <th>Apellidos </th>
             <th>Telefono </th>
             <th>Edad </th>
             <th>Sexo </th>
             <th>Alergia </th>
-            <th>Accion </th>
+            <!-- <th>Accion </th> -->
         </tr>
-        
-
     </table>
     </section>
+
+    <table id="Datos2">
+        <tr>    
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <!-- <th>Accion </th> -->
+        </tr>
+    </table>
+    <br>
+    <input type="button" value="Consultar" onclick="ConsultarP()" id="Consultar">
+    <br>
+    
 
     <section class="form-editar">
         <h5>Editar Paciente: </h5>
@@ -78,6 +87,7 @@
 
         <label for="">Ingrese el ID del paciente a editar: </label>
         <input type="text" value="" id="ID">
+        <input type="button" id="DatosP" value="Solicitar Datos del paciente" onclick="DatosEditar()" >
         <br>
         <br>
 
