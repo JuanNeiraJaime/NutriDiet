@@ -80,7 +80,7 @@ function Borrar(){
 function DatosEditar() {
     let id = document.getElementById("ID").value;
     try {
-    fetch('https://nutridiet6.herokuapp.com/pacientes' + id , {
+    fetch('https://nutridiet6.herokuapp.com/pacientes/' + id , {
         headers: {
             "content-type": "application/JSON",
             Autorization: "Bearer " + window.localStorage.token,   
