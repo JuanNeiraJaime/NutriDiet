@@ -88,7 +88,7 @@ function DatosEditar() {
     })
     .then(res => res.json())
 
-    console.log(res);
+            //console.log(res);
             console.log(res[0].Apellidos);
     
     
