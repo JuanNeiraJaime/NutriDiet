@@ -84,7 +84,7 @@ function DatosEditar() {
     //.then(res => res.json())
     .then(resp => resp.json())
     .then(res => {
-
+        console.log(res);
         document.getElementById("NombretextE").value = res[0].Nombres;
         document.getElementById("ApellidotextE").value = res[0].Apellidos;
         document.getElementById("TelefonotextE").value = res[0].Telefono;
