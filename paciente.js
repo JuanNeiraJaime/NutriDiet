@@ -80,25 +80,21 @@ function Borrar(){
 function DatosEditar() {
     let id = document.getElementById("ID").value;
     try {
-    fetch('https://nutridiet6.herokuapp.com/pacientes/' + id , {
-        headers: {
-            "content-type": "application/JSON",
-            Autorization: "Bearer " + window.localStorage.token,   
-        },
-    })
-    .then(res => res.json())
+    fetch('https://nutridiet6.herokuapp.com/pacientes/' + id)
+    //.then(res => res.json())
+    .then(resp => resp.json())
 
             //console.log(res);
-            console.log(res[0].Apellidos);
+            console.log(resp[0].Apellidos);
     
     
            // fila.insertCell(0).innerHTML   = res[i].id_pac;
-            document.getElementById("NombretextE").value = res[0].Nombres;
-            document.getElementById("ApellidotextE").value = res[0].Apellidos;
-            document.getElementById("TelefonotextE").value = res[0].Telefono;
-            document.getElementById("EdadtextE").value = res[0].Edad;
-            document.getElementById("SexotextE").value = res[0].Sexo;
-            document.getElementById("AlergiatextE").value = res[0].Alergia;
+            document.getElementById("NombretextE").value = resp[0].Nombres;
+            document.getElementById("ApellidotextE").value = resp[0].Apellidos;
+            document.getElementById("TelefonotextE").value = resp[0].Telefono;
+            document.getElementById("EdadtextE").value = resp[0].Edad;
+            document.getElementById("SexotextE").value = resp[0].Sexo;
+            document.getElementById("AlergiatextE").value = resp[0].Alergia;
     
             //ID.readOnly = true;
             id.readOnly = false;
