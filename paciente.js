@@ -85,30 +85,31 @@ function DatosEditar() {
             "content-type": "application/JSON",
             Autorization: "Bearer " + window.localStorage.token,   
         },
-    });
-    json = await.res.json();
-    MostrarDatos(json);
-    if(res.status == 200){
-        sweetAlert("Exito", "Datos obtenidos correctamente", "Success");
+    })
+    .then(res => {
+        if(res.status==200) {
+            alert("Paciente Solicitado Correctamente")
+            console.log("Si ingreso");
 
-        console.log(response);
-        console.log(response[0].Apellidos);
-
-
-       // fila.insertCell(0).innerHTML   = res[i].id_pac;
-        document.getElementById("NombretextE").value = res[0].Nombres;
-        document.getElementById("ApellidotextE").value = res[0].Apellidos;
-        document.getElementById("TelefonotextE").value = res[0].Telefono;
-        document.getElementById("EdadtextE").value = res[0].Edad;
-        document.getElementById("SexotextE").value = res[0].Sexo;
-        document.getElementById("AlergiatextE").value = res[0].Alergia;
-
-        //ID.readOnly = true;
-        id.readOnly = false;   
-
-    }else{
-        sweetAlert("Error", "Algo ha salido mal", "ERROR");
-    }
+            console.log(response);
+            console.log(response[0].Apellidos);
+    
+    
+           // fila.insertCell(0).innerHTML   = res[i].id_pac;
+            document.getElementById("NombretextE").value = res[0].Nombres;
+            document.getElementById("ApellidotextE").value = res[0].Apellidos;
+            document.getElementById("TelefonotextE").value = res[0].Telefono;
+            document.getElementById("EdadtextE").value = res[0].Edad;
+            document.getElementById("SexotextE").value = res[0].Sexo;
+            document.getElementById("AlergiatextE").value = res[0].Alergia;
+    
+            //ID.readOnly = true;
+            id.readOnly = false;   
+        }else{
+            alert("error al solicitar el paciente")
+            console.log("no ingreso");
+        }
+        })
     }
     catch(e){
         console.log(e);
