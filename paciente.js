@@ -87,12 +87,8 @@ function DatosEditar() {
         },
     })
     .then(resp => resp.json())
-    .then(res => {
-        if(res.status==200) {
-            alert("Paciente Solicitado Correctamente")
-            console.log("Si ingreso");
-            
-            console.log(res);
+
+    console.log(res);
             console.log(res[0].Apellidos);
     
     
@@ -105,12 +101,19 @@ function DatosEditar() {
             document.getElementById("AlergiatextE").value = res[0].Alergia;
     
             //ID.readOnly = true;
-            id.readOnly = false;   
+            id.readOnly = false;
+
+    /* .then(res => {
+        if(res.status==200) {
+            alert("Paciente Solicitado Correctamente")
+            console.log("Si ingreso");
+            
+               
         }else{
             alert("error al solicitar el paciente")
             console.log("no ingreso");
         }
-        })
+        }) */
     }
     catch(e){
         console.log(e);
