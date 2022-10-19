@@ -86,11 +86,12 @@ function DatosEditar() {
             Autorization: "Bearer " + window.localStorage.token,   
         },
     })
+    .then(resp => resp.json())
     .then(res => {
         if(res.status==200) {
             alert("Paciente Solicitado Correctamente")
             console.log("Si ingreso");
-
+            
             console.log(res);
             console.log(res[0].Apellidos);
     
