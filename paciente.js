@@ -91,8 +91,8 @@ function DatosEditar() {
             alert("Paciente Solicitado Correctamente")
             console.log("Si ingreso");
 
-            console.log(response);
-            console.log(response[0].Apellidos);
+            console.log(res);
+            console.log(res[0].Apellidos);
     
     
            // fila.insertCell(0).innerHTML   = res[i].id_pac;
