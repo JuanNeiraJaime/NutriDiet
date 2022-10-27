@@ -1,11 +1,11 @@
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
-import {
-  RestExplorerBindings,
-  RestExplorerComponent,
-} from '@loopback/rest-explorer';
 import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
+import {
+  RestExplorerBindings,
+  RestExplorerComponent
+} from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
@@ -13,8 +13,8 @@ import {MySequence} from './sequence';
 import {AuthenticationComponent} from '@loopback/authentication';
 import {
   JWTAuthenticationComponent,
-  SECURITY_SCHEME_SPEC,
-  UserServiceBindings,
+  RefreshTokenServiceBindings, TokenServiceBindings,
+  UserServiceBindings
 } from '@loopback/authentication-jwt';
 import {NutriDietDataSource} from './datasources';
 
@@ -58,5 +58,14 @@ export class NutridietApplication extends BootMixin(
     this.dataSource(NutriDietDataSource, UserServiceBindings.DATASOURCE_NAME);
     // ------------- END OF SNIPPET -------------
 
+    //for jwt acces token
+    this.bind(TokenServiceBindings.TOKEN_SECRET).to("nutr1d13t")
+    //for refresh token
+    this.bind(RefreshTokenServiceBindings.REFRESH_SECRET).to("nutr1d13t")
+
+    //for jwt acces token expiration
+    this.bind(TokenServiceBindings.TOKEN_EXPIRES_IN).to("3600")
+    //for refresh token expiration
+    this.bind(RefreshTokenServiceBindings.REFRESH_EXPIRES_IN).to("216000")
   }
 }
