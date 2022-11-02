@@ -11,10 +11,11 @@ import {
 import {Credentials, RefreshTokenService, RefreshTokenServiceBindings, TokenObject, TokenServiceBindings, User, UserRepository, UserServiceBindings} from '@loopback/authentication-jwt';
 import {inject} from '@loopback/core';
 import {model, property} from '@loopback/repository';
-import {get, post, requestBody, SchemaObject} from '@loopback/rest';
+import {get, HttpErrors, param, post, requestBody, SchemaObject} from '@loopback/rest';
 import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
 import {genSalt, hash} from 'bcryptjs';
-
+import {MailServiceBindings} from '../key';
+import {EmailService} from '../services';
 
 // Describes the type of grant object taken in by method "refresh"
 type RefreshGrant = {
@@ -76,6 +77,8 @@ export const CredentialsRequestBody = {
 
 export class UserController {
   constructor(
+    @inject(MailServiceBindings.MAILER_SERVICE)
+    public EmailService: EmailService,
     @inject(TokenServiceBindings.TOKEN_SERVICE)
     public jwtService: TokenService,
     @inject(UserServiceBindings.USER_SERVICE)
@@ -112,13 +115,77 @@ export class UserController {
     })
     newUserRequest: NewUserRequest,
   ): Promise<User> {
+
     const password = await hash(newUserRequest.password, await genSalt());
     delete (newUserRequest as Partial<NewUserRequest>).password;
-    const savedUser = await this.userRepository.create(newUserRequest);
+    //const savedUser = await this.userRepository.create(newUserRequest);
+    //await this.userRepository.userCredentials(savedUser.id).create({password});
+    const user = await this.userRepository.create(newUserRequest);
 
-    await this.userRepository.userCredentials(savedUser.id).create({password});
+    await this.userRepository.userCredentials(user.id).create({password});
 
-    return savedUser;
+    ////////
+    const userProfile = this.userService.convertToUserProfile(user);
+    const token = await this.jwtService.generateToken(userProfile);
+
+    await this.userRepository.updateById(user.id, {verificationToken: token});
+
+    await this.EmailService.sendMail({
+
+      to: newUserRequest.email,
+      html: `
+      <div>
+        <h2>J2A LIGA MX</h2>
+        <p>Para confirmar tu correo electrónico click en el siguiente botón:</p>
+        <a href="https://j2aligamx.vercel.app/confirm?token=${token}">click aqui para confirmar correo</a>
+      </div>
+      `,
+      subject: "Correo de registro",
+
+    });
+
+
+
+    return user;
+  }
+
+
+  ////
+
+  @get('/confirmation/{token}', {
+    responses: {
+      '200': {
+        description: 'Verification Token',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                accessToken: {
+                  type: 'object',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+
+  async confirmation(
+    @param.path.string('token') token: string,
+  ): Promise<User | null> {
+    if (!token) {
+      throw new HttpErrors.BadRequest('token format not valid');
+    }
+
+    var user = await this.userRepository.findOne({where: {verificationToken: token}})
+    if (user) {
+      await this.userRepository.updateById(user.id, {verificationToken: "", emailVerified: true})
+      return user;
+    } else {
+      throw new HttpErrors.BadRequest('token format not valid');
+    }
   }
 
   /**

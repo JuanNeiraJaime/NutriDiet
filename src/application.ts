@@ -60,6 +60,9 @@ export class NutridietApplication extends BootMixin(
 
     //for jwt acces token
     this.bind(TokenServiceBindings.TOKEN_SECRET).to("nutr1d13t")
+
+
+
     //for refresh token
     this.bind(RefreshTokenServiceBindings.REFRESH_SECRET).to("nutr1d13t")
 
