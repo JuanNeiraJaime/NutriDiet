@@ -5,9 +5,12 @@ import Mail from "nodemailer/lib/mailer";
 @injectable({scope: BindingScope.TRANSIENT})
 export class EmailService {
   private transporter;
+  private emailHost;
   constructor(host: string, emailHost: string, password: string) {
+
+    this.emailHost = emailHost;
     this.transporter = nodemailer.createTransport({
-      host: host,
+      /* host: host,
       port: 587,
       secure: false,
       requireTLS: true,
@@ -15,6 +18,14 @@ export class EmailService {
         user: emailHost,
         pass: password
       }, logger: true
+    }) */
+      service: 'gmail',
+
+      auth: {
+        user: emailHost,
+        pass: password,
+      },
+      logger: true
     })
   }
 
@@ -22,10 +33,16 @@ export class EmailService {
    * Add service methods here
    */
 
+  /*  async sendMail(mailOptions: Mail.Options): Promise<SentMessageInfo> {
+     const info = await this.transporter.sendMail(mailOptions)
+     console.log("Message sent: %s", info.response)
+     return info
+   } */
   async sendMail(mailOptions: Mail.Options): Promise<SentMessageInfo> {
-    const info = await this.transporter.sendMail(mailOptions)
-    console.log("Message sent: %s", info.response)
-    return info
-  }
+    mailOptions.from = this.emailHost;
+    const info = await this.transporter.sendMail(mailOptions);
+    console.log("Messsage sent: %s", info.response);
+    return info;
 
+  }
 }

@@ -1,4 +1,4 @@
-import { UserServiceBindings } from '@loopback/authentication-jwt';
+import {UserServiceBindings} from '@loopback/authentication-jwt';
 import {NutridietApplication} from './application';
 
 export async function migrate(args: string[]) {
@@ -6,15 +6,15 @@ export async function migrate(args: string[]) {
   console.log('Migrating schemas (%s existing schema)', existingSchema);
 
   const app = new NutridietApplication();
-  await Promise.all([ 
+  await Promise.all([
     ...app.find(UserServiceBindings.USER_REPOSITORY),
     ...app.find(UserServiceBindings.USER_CREDENTIALS_REPOSITORY)
-  ].map(b=> app.get(b.key))
+  ].map(b => app.get(b.key))
   );
   await app.boot();
   await app.migrateSchema({existingSchema});
 
- 
+
 
   // Connectors usually keep a pool of opened connections,
   // this keeps the process running even after all work is done.
