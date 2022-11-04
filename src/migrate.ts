@@ -1,4 +1,4 @@
-import {UserServiceBindings} from '@loopback/authentication-jwt';
+import {RefreshTokenServiceBindings, UserServiceBindings} from '@loopback/authentication-jwt';
 import {NutridietApplication} from './application';
 
 export async function migrate(args: string[]) {
@@ -6,9 +6,11 @@ export async function migrate(args: string[]) {
   console.log('Migrating schemas (%s existing schema)', existingSchema);
 
   const app = new NutridietApplication();
+
   await Promise.all([
     ...app.find(UserServiceBindings.USER_REPOSITORY),
-    ...app.find(UserServiceBindings.USER_CREDENTIALS_REPOSITORY)
+    ...app.find(UserServiceBindings.USER_CREDENTIALS_REPOSITORY),
+    ...app.find(RefreshTokenServiceBindings.REFRESH_REPOSITORY)
   ].map(b => app.get(b.key))
   );
   await app.boot();

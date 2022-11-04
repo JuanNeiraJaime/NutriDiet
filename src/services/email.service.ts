@@ -6,7 +6,7 @@ import Mail from "nodemailer/lib/mailer";
 export class EmailService {
   private transporter;
   private emailHost;
-  constructor(host: string, emailHost: string, password: string) {
+  constructor(emailHost: string, password: string) {
 
     this.emailHost = emailHost;
     this.transporter = nodemailer.createTransport({

@@ -1,3 +1,11 @@
+import {AuthenticationComponent} from '@loopback/authentication';
+import {
+  JWTAuthenticationComponent,
+  MyUserService,
+  RefreshTokenServiceBindings, TokenServiceBindings,
+  UserServiceBindings
+} from '@loopback/authentication-jwt';
+
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
 import {RepositoryMixin} from '@loopback/repository';
@@ -8,15 +16,10 @@ import {
 } from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
-import {MySequence} from './sequence';
-
-import {AuthenticationComponent} from '@loopback/authentication';
-import {
-  JWTAuthenticationComponent,
-  RefreshTokenServiceBindings, TokenServiceBindings,
-  UserServiceBindings
-} from '@loopback/authentication-jwt';
 import {NutriDietDataSource} from './datasources';
+import {MailServiceBindings} from './key';
+import {MySequence} from './sequence';
+import {EmailService} from './services';
 
 
 
@@ -56,19 +59,25 @@ export class NutridietApplication extends BootMixin(
     this.component(JWTAuthenticationComponent);
     // Bind datasource
     this.dataSource(NutriDietDataSource, UserServiceBindings.DATASOURCE_NAME);
+    this.dataSource(NutriDietDataSource, RefreshTokenServiceBindings.DATASOURCE_NAME);
     // ------------- END OF SNIPPET -------------
 
+    this.bind(UserServiceBindings.USER_SERVICE).toClass(MyUserService);
     //for jwt acces token
-    this.bind(TokenServiceBindings.TOKEN_SECRET).to("nutr1d13t")
+    this.bind(TokenServiceBindings.TOKEN_SECRET).to("Clave Secreta")
 
 
 
     //for refresh token
-    this.bind(RefreshTokenServiceBindings.REFRESH_SECRET).to("nutr1d13t")
+    this.bind(RefreshTokenServiceBindings.REFRESH_SECRET).to("Clave Secreta")
 
-    //for jwt acces token expiration
-    this.bind(TokenServiceBindings.TOKEN_EXPIRES_IN).to("3600")
-    //for refresh token expiration
+    //for jwt acces token
+
+    this.bind(TokenServiceBindings.TOKEN_EXPIRES_IN).to("216000")
     this.bind(RefreshTokenServiceBindings.REFRESH_EXPIRES_IN).to("216000")
+
+    this.bind(MailServiceBindings.MAILER_SERVICE).toClass(EmailService)
+      .to(new EmailService("bleaze1974@gmail.com", "dxpwmqmmptkvxuqr"));
+
   }
 }
