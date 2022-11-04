@@ -5,10 +5,13 @@ const config = {
   name: 'NutriDiet',
   connector: 'mysql',
   url: '',
-  host: 'nutridiet.cyyvqt1pvsmm.us-east-2.rds.amazonaws.com',
+  //host: 'nutridiet.cyyvqt1pvsmm.us-east-2.rds.amazonaws.com',
+  host: 'localhost',
   port: 3306,
-  user: 'admin',
-  password: 'nutridiet4+',
+  user: 'root',
+  //user: 'admin',
+  //password: 'nutridiet4+',
+  password: 'sistemas5120',
   database: 'nutridiet'
 };
 

@@ -135,9 +135,9 @@ export class UserController {
       to: newUserRequest.email,
       html: `
       <div>
-        <h2>J2A LIGA MX</h2>
+        <h2>NUTRIDIET</h2>
         <p>Para confirmar tu correo electrónico click en el siguiente botón:</p>
-        <a href="https://j2aligamx.vercel.app/confirm?token=${token}">click aqui para confirmar correo</a>
+        <a href="${token}">click aqui para confirmar correo</a>
       </div>
       `,
       subject: "Correo de registro",
