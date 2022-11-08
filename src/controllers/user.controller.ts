@@ -8,7 +8,7 @@ import {
   TokenService,
   UserService
 } from '@loopback/authentication';
-import {Credentials, RefreshTokenService, RefreshTokenServiceBindings, TokenObject, TokenServiceBindings, User, UserRepository, UserServiceBindings} from '@loopback/authentication-jwt';
+import {Credentials, RefreshTokenService, RefreshTokenServiceBindings, TokenObject, TokenServiceBindings, User, UserCredentialsRepository, UserRepository, UserServiceBindings} from '@loopback/authentication-jwt';
 import {inject} from '@loopback/core';
 import {model, property} from '@loopback/repository';
 import {get, HttpErrors, param, post, requestBody, SchemaObject} from '@loopback/rest';
@@ -22,6 +22,17 @@ type RefreshGrant = {
   refreshToken: string;
 };
 
+
+const PasswordSchema: SchemaObject = {
+  type: 'object',
+  required: ['password'],
+  properties: {
+    password: {
+      type: 'string',
+      minLength: 8,
+    },
+  },
+};
 // Describes the schema of grant object
 const RefreshGrantSchema: SchemaObject = {
   type: 'object',
@@ -67,6 +78,22 @@ export class NewUserRequest extends User {
   password: string;
 }
 
+@model()
+export class NewUserRequestPassword {
+  @property({
+    type: 'string',
+    required: true,
+  })
+  password: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+
+  token: string;
+}
+
 export const CredentialsRequestBody = {
   description: 'The input of login function',
   required: true,
@@ -89,6 +116,8 @@ export class UserController {
     public userRepository: UserRepository,
     @inject(RefreshTokenServiceBindings.REFRESH_TOKEN_SERVICE)
     public refreshService: RefreshTokenService,
+    @inject(UserServiceBindings.USER_CREDENTIALS_REPOSITORY)
+    public userCredentials: UserCredentialsRepository,
   ) { }
 
   @post('/users/signup', {
@@ -148,9 +177,183 @@ export class UserController {
 
     return user;
   }
+  /////
 
+  @get('/user/{email}', {
+    responses: {
+      '200': {
+        description: 'email exits',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                accessToken: {
+                  type: 'object',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+  async findByEmail(
+    @param.path.string('email') email: string,
+  ): Promise<User | null> {
+    if (!email) {
+      throw new HttpErrors.BadRequest('email format not valid');
+    }
+    var user = await this.userRepository.findOne({where: {email: email}})
+    if (user) {
+      const userProfile = this.userService.convertToUserProfile(user);
+      const token = await this.jwtService.generateToken(userProfile);
+      await this.userRepository.updateById(user.id, {verificationToken: token});
+      await this.EmailService.sendMail({
+        to: user.email,
+        html: `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Document</title>
+          <style>
+              .header{
+                  background-color: #032e29;
+                  align-items: center;
+                  justify-content: center;
+                  text-align: center;
+                  color: white;
+                  font-family: sans-serif;
+                  margin-top: 20px;
+                  padding: 10px;
+                  margin-bottom: 20px;
+              }
+              .container{
+                  align-items: center;
+                  justify-content: center;
+                  font-family: sans-serif;
+                  text-align: center;
+              }
+              .btnConfirmar{
+                  display: inline-block;
+                  border-radius: 4px;
+                  background-color: #7d2ed1;
+                  border: none;
+                  color: #FFFFFF;
+                  text-align: center;
+                  font-size: 25px;
+                  padding: 10px;
+                  width: 200px;
+                  transition: all 0.5s;
+                  cursor: pointer;
+                  margin: 5px;
+              }
+              .btnConfirmar:hover{
+                  background-color: #63068f;
+              }
+              .link{
+                  text-align: center;
+                  text-decoration:none;
+                  color: #FFFFFF;
+              }
+              .footer{
+                  background-color: #eee6f2;
+                  align-items: center;
+                  justify-content: center;
+                  text-align: center;
+                  color: #000000;
+                  font-family: sans-serif;
+                  margin-top: 20px;
+                  padding: 10px;
+                  margin-bottom: 20px;
+              }
+          </style>
+      </head>
+      <body>
+          <div class="header">
+              <div>
+                  <h1>NUTRIDIET</h1>
+              </div>
+          </div>
+          <div class="container">
+              <p>Buen dia:  ${user.username}</p>
+              <p>Para recuperar tu contraseña porfavor da click en el siguiente enlace:</p>
+              <a class="link" href="http://localhost:3000/nuevacontrasena?token=${token}"><button class="btnConfirmar">Confirmar</button></a>
+          </div>
+
+          <div class="footer">
+              <div>
+                  <p>© 2022 - NUTRIDIET.</p>
+              </div>
+          </div>
+      </body>
+      </html>
+      `,
+        subject: "Correo de registro",
+      })
+      return user;
+    } else {
+      throw new HttpErrors.BadRequest('email format not valid');
+    }
+  }
+
+  //https://j2aligamx.vercel.app/session/newPassword?token=${token}
 
   ////
+  @post('/changePass/{token}', {
+    responses: {
+      '200': {
+        description: 'Verification Token',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                accessToken: {
+                  type: 'object',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+
+  async changepass(
+    @param.path.string('token') token: string,
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: PasswordSchema,
+        },
+      },
+    })
+    newUserRequestPassword: NewUserRequestPassword,
+  ): Promise<User | null> {
+    if (!token) {
+      throw new HttpErrors.BadRequest('token format not valid');
+    }
+    const password = await hash(newUserRequestPassword.password, await genSalt());
+    var user = await this.userRepository.findOne({where: {verificationToken: token}})
+    if (user) {
+      var credential = await this.userCredentials.findOne({where: {userId: user.id}})
+      if (credential) {
+        await this.userCredentials.updateById(credential.id, {password: password})
+      } else {
+        throw new HttpErrors.BadRequest('token format not valid');
+      }
+      console.log(user.email)
+      return user;
+    } else {
+      throw new HttpErrors.BadRequest('token format not valid');
+    }
+  }
+
+  ///
 
   @get('/confirmation/{token}', {
     responses: {
@@ -226,6 +429,11 @@ export class UserController {
 
     return {token};
   }
+
+
+
+
+
 
   @authenticate('jwt')
   @get('/whoAmI', {
