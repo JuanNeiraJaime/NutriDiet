@@ -252,7 +252,7 @@ export class UserController {
                   margin: 5px;
               }
               .btnConfirmar:hover{
-                  background-color: #63068f;
+                  background-color: #03BB85;
               }
               .link{
                   text-align: center;
@@ -279,9 +279,9 @@ export class UserController {
               </div>
           </div>
           <div class="container">
-              <p>Buen dia:  ${user.username}</p>
+              <p>Buen dia:${user.username}</p>
               <p>Para recuperar tu contraseña porfavor da click en el siguiente enlace:</p>
-              <a class="link" href="http://localhost:3000/nuevacontrasena?token=${token}"><button class="btnConfirmar">Confirmar</button></a>
+              <a class="link" href="http://localhost:3000/nuevacontrasena?token=${token}"><button class="btnConfirmar">Cambiar Contraseña</button></a>
           </div>
 
           <div class="footer">
@@ -292,7 +292,7 @@ export class UserController {
       </body>
       </html>
       `,
-        subject: "Correo de registro",
+        subject: "Recuperacion de Contraseña",
       })
       return user;
     } else {
