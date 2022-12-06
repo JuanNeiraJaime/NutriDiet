@@ -27,6 +27,12 @@ export class Cita extends Entity {
   })
   id_pac: number;
 
+  @property({
+    type: 'string',
+    required: true,
+  })
+  NamePaciente: string;
+
   // Define well-known properties here
 
   // Indexer property to allow additional data
