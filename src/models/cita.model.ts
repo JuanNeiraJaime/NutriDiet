@@ -10,22 +10,28 @@ export class Cita extends Entity {
   id_cita?: number;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
   })
-  Hora: number;
+  Hora: string;
 
   @property({
-    type: 'date',
+    type: 'string',
     required: true,
   })
-  Fecha: Date;
+  Fecha: string;
 
   @property({
     type: 'number',
     required: true,
   })
   id_pac: number;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  NamePaciente: string;
 
   // Define well-known properties here
 
