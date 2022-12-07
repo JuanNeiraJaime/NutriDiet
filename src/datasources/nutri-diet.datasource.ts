@@ -11,7 +11,7 @@ const config = {
   user: 'root',
   //user: 'admin',
   //password: 'nutridiet4+',
-  password: 'sistemas5120',
+  password: 'Password4+',
   database: 'nutridiet'
 };
 

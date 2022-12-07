@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
+import {Progreso} from './progreso.model';
 
 @model({settings: {strict: false}})
 export class Paciente extends Entity {
@@ -44,6 +45,8 @@ export class Paciente extends Entity {
     required: true,
   })
   Alergia: string;
+
+  @hasMany(() => Progreso, {keyTo: "pacienteid"}) progresos?: Progreso[]
 
   // Define well-known properties here
 

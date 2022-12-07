@@ -10,7 +10,7 @@ export class Progreso extends Entity {
   id_progreso?: number;
 
   @property({
-    type: 'date',
+    type: 'string',
     required: true,
   })
   Fecha: string;
@@ -44,6 +44,14 @@ export class Progreso extends Entity {
     required: true,
   })
   CmBrazo: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  pacienteid: string;
+
+  // @belongsTo(() => Paciente) pacienteid: number;
 
   // Define well-known properties here
 
