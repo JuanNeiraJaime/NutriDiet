@@ -12,7 +12,7 @@ const config = {
   //user: 'admin',
   //password: 'nutridiet4+',
 
-  password: 'Password4+',
+  password: 'bardock999',
   // password: 'bardock999',
   database: 'nutridiet'
 };

@@ -3,3 +3,4 @@ export * from './progreso.model';
 export * from './alimento.model';
 export * from './ingredientes.model';
 export * from './cita.model';
+export * from './dieta.model';
