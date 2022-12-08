@@ -24,7 +24,6 @@
     "pretest": "npm run rebuild",
     "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
     "posttest": "npm run lint",
-    "postinstall": "npm run build",
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
     "docker:build": "docker build -t nutridiet .",
     "docker:run": "docker run -p 3000:3000 -d nutridiet",
@@ -35,7 +34,6 @@
     "prestart": "npm run rebuild",
     "start": "node -r source-map-support/register .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
-    "start:prod": "node dist/index.js",
     "rebuild": "npm run clean && npm run build"
   },
   "repository": {
