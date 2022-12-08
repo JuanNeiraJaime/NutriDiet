@@ -6,13 +6,13 @@ const config = {
   connector: 'mysql',
   url: '',
   //host: 'nutridiet.cyyvqt1pvsmm.us-east-2.rds.amazonaws.com',
-  host: 'localhost',
+  host: 'bdnutridiet.cygor01oula4.us-west-1.rds.amazonaws.com',
   port: 3306,
-  user: 'root',
+  user: 'admin',
   //user: 'admin',
   //password: 'nutridiet4+',
 
-  password: 'bardock999',
+  password: 'Bardock999',
   // password: 'bardock999',
   database: 'nutridiet'
 };
